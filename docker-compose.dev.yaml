@@ -3,6 +3,24 @@
 # This is only for the dev enviroment
 
 services:
+  postiz-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: postiz-frontend
+    restart: always
+    environment:
+      NEXT_PUBLIC_BACKEND_URL: http://localhost:3000/api
+    ports:
+      - 4200:4200
+    volumes:
+      - ./:/app
+      - postiz-node-modules:/app/node_modules
+      - postiz-pnpm-store:/pnpm/store
+    command: sh -c "pnpm install --frozen-lockfile --filter ./apps/frontend... && pnpm --filter ./apps/frontend run dev"
+    networks:
+      - postiz-network
+
   postiz-postgres:
     # ref: https://hub.docker.com/_/postgres
     image: postgres:17-alpine # 17.0
@@ -139,6 +157,8 @@ volumes:
   redisinsight:
   postgres-volume:
     external: false
+  postiz-node-modules:
+  postiz-pnpm-store:
 
 networks:
   postiz-network:
