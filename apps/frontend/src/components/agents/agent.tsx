@@ -107,8 +107,10 @@ export const AgentList: FC<{ onChange: (arr: any[]) => void }> = ({
   return (
     <div
       className={clsx(
-        'trz bg-newBgColorInner flex flex-col gap-[15px] transition-all relative',
-        collapseMenu === '1' ? 'group sidebar w-[100px]' : 'w-[260px]'
+        'trz bg-newBgColorInner flex flex-col gap-[15px] transition-all relative max-[1025px]:w-full',
+        collapseMenu === '1'
+          ? 'group sidebar w-[100px] max-[1025px]:w-full'
+          : 'w-[260px] max-[1025px]:w-full'
       )}
     >
       <div className="absolute top-0 start-0 w-full h-full p-[20px] overflow-auto scrollbar scrollbar-thumb-fifth scrollbar-track-newBgColor">
@@ -118,7 +120,7 @@ export const AgentList: FC<{ onChange: (arr: any[]) => void }> = ({
           </h2>
           <div
             onClick={() => setCollapseMenu(collapseMenu === '1' ? '0' : '1')}
-            className="-mt-3 group-[.sidebar]:rotate-[180deg] group-[.sidebar]:mx-auto text-btnText bg-btnSimple rounded-[6px] w-[24px] h-[24px] flex items-center justify-center cursor-pointer select-none"
+            className="-mt-3 group-[.sidebar]:rotate-[180deg] group-[.sidebar]:mx-auto text-btnText bg-btnSimple rounded-[6px] w-[24px] h-[24px] flex items-center justify-center cursor-pointer select-none max-[1025px]:hidden"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -203,7 +205,9 @@ export const Agent: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <PropertiesContext.Provider value={{ properties }}>
       <AgentList onChange={setProperties} />
-      <div className="bg-newBgColorInner flex flex-1">{children}</div>
+      <div className="bg-newBgColorInner flex flex-1 max-[1025px]:p-[12px]">
+        {children}
+      </div>
       <Threads />
     </PropertiesContext.Provider>
   );
@@ -224,8 +228,7 @@ const Threads: FC = () => {
   return (
     <div
       className={clsx(
-        'trz bg-newBgColorInner flex flex-col gap-[15px] transition-all relative',
-        'w-[260px]'
+        'trz bg-newBgColorInner flex flex-col gap-[15px] transition-all relative w-[260px] max-[1025px]:w-full'
       )}
     >
       <div className="absolute top-0 start-0 w-full h-full p-[20px] overflow-auto scrollbar scrollbar-thumb-fifth scrollbar-track-newBgColor">
