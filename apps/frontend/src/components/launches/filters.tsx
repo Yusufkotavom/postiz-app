@@ -3,7 +3,7 @@
 import { useCalendar } from '@gitroom/frontend/components/launches/calendar.context';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { SelectCustomer } from '@gitroom/frontend/components/launches/select.customer';
 import { useT } from '@gitroom/react/translation/get.transation.service.client';
 import i18next from 'i18next';
@@ -259,6 +259,22 @@ export const Filters = () => {
 
   const isListView = calendar.display === 'list';
 
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    if (window.innerWidth <= 1025 && calendar.display === 'week') {
+      const range = getDateRange('list');
+      calendar.setFilters({
+        startDate: range.startDate,
+        endDate: range.endDate,
+        display: 'list',
+        customer: calendar.customer,
+      });
+    }
+  }, [calendar]);
+
   const previousPage = useCallback(() => {
     if (calendar.listPage > 0) {
       calendar.setListPage(calendar.listPage - 1);
@@ -364,7 +380,8 @@ export const Filters = () => {
             </div>
             <div className="min-w-[200px] text-center bg-newBgColorInner h-full flex items-center justify-center">
               <div className="py-[3px] px-[9px] rounded-[5px] transition-all text-[14px]">
-                {t('page', 'Page')} {calendar.listPage + 1} {t('of', 'of')} {Math.max(1, calendar.listTotalPages)}
+                {t('page', 'Page')} {calendar.listPage + 1} {t('of', 'of')}{' '}
+                {Math.max(1, calendar.listTotalPages)}
               </div>
             </div>
             <div
@@ -415,7 +432,8 @@ export const Filters = () => {
           <div
             className={clsx(
               'pt-[6px] pb-[5px] cursor-pointer w-[74px] text-center rounded-[6px]',
-              calendar.display === 'week' && 'text-textItemFocused bg-boxFocused'
+              calendar.display === 'week' &&
+                'text-textItemFocused bg-boxFocused'
             )}
             onClick={setWeek}
           >
@@ -424,7 +442,8 @@ export const Filters = () => {
           <div
             className={clsx(
               'pt-[6px] pb-[5px] cursor-pointer w-[74px] text-center rounded-[6px]',
-              calendar.display === 'month' && 'text-textItemFocused bg-boxFocused'
+              calendar.display === 'month' &&
+                'text-textItemFocused bg-boxFocused'
             )}
             onClick={setMonth}
           >
