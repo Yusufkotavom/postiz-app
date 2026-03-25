@@ -87,7 +87,7 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
             <ContinueProvider />
             <div
               className={clsx(
-                'flex flex-col min-h-screen min-w-screen text-newTextColor p-[12px]',
+                'flex flex-col min-h-screen min-w-screen text-newTextColor p-[12px] max-[1025px]:p-[8px]',
                 jakartaSans.className
               )}
             >
@@ -95,9 +95,9 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
               {user.tier === 'FREE' && isGeneral && billingEnabled ? (
                 <FirstBillingComponent />
               ) : (
-                <div className="flex-1 flex gap-[8px]">
+                <div className="flex-1 flex gap-[8px] max-[1025px]:flex-col">
                   <Support />
-                  <div className="flex flex-col bg-newBgColorInner w-[80px] rounded-[12px]">
+                  <div className="flex flex-col bg-newBgColorInner w-[80px] rounded-[12px] max-[1025px]:hidden">
                     <div
                       className={clsx(
                         'fixed h-full w-[64px] start-[17px] flex flex-1 top-0',
@@ -110,27 +110,30 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex-1 bg-newBgLineColor rounded-[12px] overflow-hidden flex flex-col gap-[1px] blurMe">
-                    <div className="flex bg-newBgColorInner h-[80px] px-[20px] items-center">
-                      <div className="text-[24px] font-[600] flex flex-1">
+                  <div className="flex-1 bg-newBgLineColor rounded-[12px] overflow-hidden flex flex-col gap-[1px] blurMe min-w-0">
+                    <div className="hidden max-[1025px]:block bg-newBgColorInner px-[12px] pt-[10px]">
+                      <TopMenu />
+                    </div>
+                    <div className="flex bg-newBgColorInner h-[80px] px-[20px] items-center max-[1025px]:h-auto max-[1025px]:min-h-[64px] max-[1025px]:px-[12px] max-[1025px]:py-[10px] max-[1025px]:flex-wrap max-[1025px]:gap-[10px]">
+                      <div className="text-[24px] font-[600] flex flex-1 max-[1025px]:text-[18px] max-[1025px]:min-w-0">
                         <Title />
                       </div>
-                      <div className="flex gap-[20px] text-textItemBlur">
+                      <div className="flex gap-[20px] text-textItemBlur max-[1025px]:gap-[12px] max-[1025px]:w-full max-[1025px]:overflow-x-auto max-[1025px]:pb-[2px]">
                         <StreakComponent />
-                        <div className="w-[1px] h-[20px] bg-blockSeparator" />
+                        <div className="w-[1px] h-[20px] bg-blockSeparator max-[1025px]:hidden" />
                         <OrganizationSelector />
                         <div className="hover:text-newTextColor">
                           <ModeComponent />
                         </div>
-                        <div className="w-[1px] h-[20px] bg-blockSeparator" />
+                        <div className="w-[1px] h-[20px] bg-blockSeparator max-[1025px]:hidden" />
                         <LanguageComponent />
                         <ChromeExtensionComponent />
-                        <div className="w-[1px] h-[20px] bg-blockSeparator" />
+                        <div className="w-[1px] h-[20px] bg-blockSeparator max-[1025px]:hidden" />
                         <AttachToFeedbackIcon />
                         <NotificationComponent />
                       </div>
                     </div>
-                    <div className="flex flex-1 gap-[1px]">{children}</div>
+                    <div className="flex flex-1 gap-[1px] min-w-0 overflow-x-auto">{children}</div>
                   </div>
                 </div>
               )}

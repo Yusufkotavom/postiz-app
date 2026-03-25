@@ -14,14 +14,14 @@ export const MenuItem: FC<{ label: string; icon: ReactNode; path: string; onClic
   const isActive = currentPath.indexOf(path) === 0;
 
   const className = clsx(
-    'w-full minCustom:h-[54px] custom:h-[30px] py-[8px] px-[6px] gap-[4px] flex flex-col custom:flex-row text-[10px] font-[600] items-center minCustom:justify-center rounded-[12px] hover:text-textItemFocused hover:bg-boxFocused',
+    'w-full minCustom:h-[54px] custom:h-[30px] py-[8px] px-[6px] gap-[4px] flex flex-col custom:flex-row text-[10px] font-[600] items-center minCustom:justify-center rounded-[12px] hover:text-textItemFocused hover:bg-boxFocused max-[1025px]:min-w-max max-[1025px]:w-auto max-[1025px]:px-[10px] max-[1025px]:py-[7px] max-[1025px]:flex-row max-[1025px]:gap-[6px]',
     isActive ? 'text-textItemFocused bg-boxFocused' : 'text-textItemBlur'
   );
 
   if (onClick) {
     return (
       <button onClick={onClick} className={className}>
-        <div className="custom:hidden">{icon}</div>
+        <div className="custom:hidden max-[1025px]:block">{icon}</div>
         <div className="text-[10px]">{label}</div>
       </button>
     );
@@ -34,7 +34,7 @@ export const MenuItem: FC<{ label: string; icon: ReactNode; path: string; onClic
       {...path.indexOf('http') === 0 && { target: '_blank' }}
       className={className}
     >
-      <div className="custom:hidden">{icon}</div>
+      <div className="custom:hidden max-[1025px]:block">{icon}</div>
       <div className="text-[10px]">{label}</div>
     </Link>
   );
