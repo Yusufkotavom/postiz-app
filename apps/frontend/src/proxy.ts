@@ -25,6 +25,9 @@ export async function proxy(request: NextRequest) {
       );
 
   const requestHeaders = new Headers(request.headers);
+  const allowPreviewWithoutLogin =
+    process.env.ALLOW_FRONTEND_PREVIEW_WITHOUT_LOGIN === 'true' &&
+    process.env.NODE_ENV !== 'production';
   if (lng) {
     requestHeaders.set(headerName, lng);
   }
@@ -39,7 +42,7 @@ export async function proxy(request: NextRequest) {
     topResponse.headers.set(cookieName, lng);
   }
 
-  if (nextUrl.pathname.startsWith('/modal/') && !authCookie) {
+  if (nextUrl.pathname.startsWith('/modal/') && !authCookie && !allowPreviewWithoutLogin) {
     return NextResponse.redirect(new URL(`/auth/login-required`, nextUrl.href));
   }
 
@@ -88,6 +91,9 @@ export async function proxy(request: NextRequest) {
   const org = nextUrl.searchParams.get('org');
   const url = new URL(nextUrl).search;
   if (!nextUrl.pathname.startsWith('/auth') && !authCookie) {
+    if (allowPreviewWithoutLogin) {
+      return topResponse;
+    }
     const providers = ['google', 'settings'];
     const findIndex = providers.find((p) => nextUrl.href.indexOf(p) > -1);
     const additional = !findIndex
