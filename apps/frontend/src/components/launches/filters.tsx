@@ -3,7 +3,7 @@
 import { useCalendar } from '@gitroom/frontend/components/launches/calendar.context';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { SelectCustomer } from '@gitroom/frontend/components/launches/select.customer';
 import { useT } from '@gitroom/react/translation/get.transation.service.client';
 import i18next from 'i18next';
