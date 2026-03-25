@@ -3,7 +3,7 @@
 import { useCalendar } from '@gitroom/frontend/components/launches/calendar.context';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 import { SelectCustomer } from '@gitroom/frontend/components/launches/select.customer';
 import { useT } from '@gitroom/react/translation/get.transation.service.client';
 import i18next from 'i18next';
@@ -271,6 +271,22 @@ export const Filters = () => {
 
     if (window.innerWidth <= 1025 && calendar.display === 'week') {
       hasAppliedMobileDefault.current = true;
+      const range = getDateRange('list');
+      calendar.setFilters({
+        startDate: range.startDate,
+        endDate: range.endDate,
+        display: 'list',
+        customer: calendar.customer,
+      });
+    }
+  }, [calendar]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    if (window.innerWidth <= 1025 && calendar.display === 'week') {
       const range = getDateRange('list');
       calendar.setFilters({
         startDate: range.startDate,

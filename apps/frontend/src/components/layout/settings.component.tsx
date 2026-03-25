@@ -123,7 +123,7 @@ export const SettingsPopup: FC<{
 
   return (
     <>
-      <div className="bg-newBgColorInner p-[20px] flex flex-col transition-all w-[260px] max-[1025px]:hidden">
+      <div className="bg-newBgColorInner p-[20px] flex flex-col transition-all w-[260px] max-[1025px]:w-full max-[1025px]:p-[12px]">
         <div className="flex flex-1 flex-col gap-[15px]">
           {list.map(({ tab: tabKey, label }) => (
             <div
