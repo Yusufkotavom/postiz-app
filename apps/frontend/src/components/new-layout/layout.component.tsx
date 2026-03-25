@@ -133,7 +133,9 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
                         <NotificationComponent />
                       </div>
                     </div>
-                    <div className="flex flex-1 gap-[1px] min-w-0 overflow-x-auto">{children}</div>
+                    <div className="flex flex-1 gap-[1px] min-w-0 overflow-x-auto max-[1025px]:flex-col max-[1025px]:overflow-x-hidden max-[1025px]:overflow-y-auto">
+                      {children}
+                    </div>
                   </div>
                 </div>
               )}
