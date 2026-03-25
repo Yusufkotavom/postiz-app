@@ -174,8 +174,10 @@ export const PlatformAnalytics = () => {
     <>
       <div
         className={clsx(
-          'bg-newBgColorInner p-[20px] flex flex-col gap-[15px] transition-all max-[1025px]:hidden',
-          collapseMenu === '1' ? 'group sidebar w-[100px]' : 'w-[260px]'
+          'bg-newBgColorInner p-[20px] flex flex-col gap-[15px] transition-all max-[1025px]:w-full',
+          collapseMenu === '1'
+            ? 'group sidebar w-[100px] max-[1025px]:w-full'
+            : 'w-[260px] max-[1025px]:w-full'
         )}
       >
         <div className="flex gap-[12px] flex-col">

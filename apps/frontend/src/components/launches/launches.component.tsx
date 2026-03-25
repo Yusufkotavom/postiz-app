@@ -499,8 +499,10 @@ export const LaunchesComponent = () => {
       <CalendarWeekProvider integrations={sortedIntegrations}>
         <div
           className={clsx(
-            'flex relative flex-col max-[1025px]:hidden',
-            collapseMenu === '1' ? 'group sidebar w-[100px]' : 'w-[260px]'
+            'flex relative flex-col max-[1025px]:w-full',
+            collapseMenu === '1'
+              ? 'group sidebar w-[100px] max-[1025px]:w-full'
+              : 'w-[260px] max-[1025px]:w-full'
           )}
         >
           <div
