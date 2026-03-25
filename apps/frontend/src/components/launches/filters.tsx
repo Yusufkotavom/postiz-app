@@ -258,6 +258,28 @@ export const Filters = () => {
   );
 
   const isListView = calendar.display === 'list';
+  const hasAppliedMobileDefault = useRef(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    if (hasAppliedMobileDefault.current) {
+      return;
+    }
+
+    if (window.innerWidth <= 1025 && calendar.display === 'week') {
+      hasAppliedMobileDefault.current = true;
+      const range = getDateRange('list');
+      calendar.setFilters({
+        startDate: range.startDate,
+        endDate: range.endDate,
+        display: 'list',
+        customer: calendar.customer,
+      });
+    }
+  }, [calendar]);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
