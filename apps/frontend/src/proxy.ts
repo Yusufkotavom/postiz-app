@@ -10,10 +10,14 @@ import {
 } from '@gitroom/react/translation/i18n.config';
 acceptLanguage.languages(languages);
 
+const isDevFrontendBypass = () => true;
+
 // This function can be marked `async` if using `await` inside
 export async function proxy(request: NextRequest) {
   const nextUrl = request.nextUrl;
+  const shouldBypassAuth = isDevFrontendBypass();
   const authCookie =
+    (shouldBypassAuth ? 'dev-bypass-auth' : null) ||
     request.cookies.get('auth') ||
     request.headers.get('auth') ||
     nextUrl.searchParams.get('loggedAuth');
