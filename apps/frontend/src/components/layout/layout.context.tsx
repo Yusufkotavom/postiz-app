@@ -24,6 +24,7 @@ export function setCookie(cname: string, cvalue: string, exdays: number) {
 function LayoutContextInner(params: { children: ReactNode }) {
   const returnUrl = useReturnUrl();
   const { backendUrl, isGeneral, isSecured } = useVariables();
+  const isDevFrontendBypass = true;
   const afterRequest = useCallback(
     async (url: string, options: RequestInit, response: Response) => {
       if (
@@ -79,7 +80,10 @@ function LayoutContextInner(params: { children: ReactNode }) {
         return true;
       }
 
-      if (response.status === 401 || response?.headers?.get('logout')) {
+      if (
+        !isDevFrontendBypass &&
+        (response.status === 401 || response?.headers?.get('logout'))
+      ) {
         if (!isSecured) {
           setCookie('auth', '', -10);
           setCookie('showorg', '', -10);
@@ -119,7 +123,7 @@ function LayoutContextInner(params: { children: ReactNode }) {
       }
       return true;
     },
-    []
+    [isDevFrontendBypass, isGeneral, isSecured, returnUrl]
   );
   return (
     <FetchWrapperComponent baseUrl={backendUrl} afterRequest={afterRequest}>
